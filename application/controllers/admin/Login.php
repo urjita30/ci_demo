@@ -77,7 +77,6 @@ class Login extends MY_Controller {
 	                ),
 		        )
 			);
-			// var_dump($config); exit;
 			// $this->form_validation->set_rules($config);
 
 			$this->form_validation->set_rules('txt_username', 'Username', 'trim|required|min_length[5]|max_length[12]|is_unique[users.username]');
@@ -92,7 +91,6 @@ class Login extends MY_Controller {
 				$data['error'] = 'There is some error1. Please try again !';
 				$this->session->set_flashdata('error', $data['error']);
 				$this->load->view('admin/registration',$data);
-				// redirect('admin/register');
 			} else {
 				$name = $this->input->post('txt_fname').' '.$this->input->post('txt_lname');
 				$dataArr = array(
@@ -100,22 +98,21 @@ class Login extends MY_Controller {
 					'name' 		=> $name,
 					'password' 	=> md5($this->input->post('txt_password')),
 					'email' 	=> $this->input->post('txt_email'),
-					'gender' 	=> $this->input->post('radio_gender'),
+					'gender' 	=> ($this->input->post('radio_gender')) ? 'female' : 'male' ,
 					'role'		=> 1
 				);
+				// pr($dataArr,1);
 				$resp = $this->users_model->perform_action('insert',$dataArr);
 				if($resp < 1) {
 					$data['error'] = 'There is some error2. Please try again !';
 					$this->session->set_flashdata('error', $data['error']);
 					$this->load->view('admin/registration',$data);
-					// redirect('admin/register');
 				} else {
 					$data['success'] = 'You are successfully registered !';
 					$this->session->set_flashdata('success', $data['success']); 
 					$this->load->view('admin/login',$data);
 				}
 			}
-			
 		} else {
 			$this->load->view('/admin/registration');
 		}

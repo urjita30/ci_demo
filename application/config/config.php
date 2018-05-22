@@ -23,8 +23,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:81/ci_site/';
-
+if($_SERVER['HTTP_HOST'] == 'localhost') {
+	$base_url = 'http://localhost/ci_site/';
+} else if($_SERVER['HTTP_HOST'] == 'localhost:81') {
+	$base_url = 'http://localhost:81/ci_site/';
+}
+$config['base_url'] = $base_url;
 /*
 |--------------------------------------------------------------------------
 | Index File

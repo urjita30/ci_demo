@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2018 at 02:50 PM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Generation Time: May 22, 2018 at 05:39 PM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ci_site`
@@ -26,11 +26,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `role`
@@ -46,31 +45,57 @@ INSERT INTO `role` (`id`, `name`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `gender` tinyint(4) NOT NULL COMMENT '0 = Male , 1 = Female  ',
+  `gender` enum('male','female') NOT NULL,
   `role` int(11) NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 = Not delete , 1 = Deleted',
-  PRIMARY KEY (`id`),
-  KEY `role` (`role`),
-  KEY `role_2` (`role`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 = Not delete , 1 = Deleted'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `gender`, `role`, `created_date`, `modified_date`, `is_delete`) VALUES
-(1, 'Urjita Dalal', 'urjita', 'a6b8aebcb6dab8795ad517ee9cec555f', 'ud@narola.email', 1, 1, '2018-05-09 17:27:47', '0000-00-00 00:00:00', 0),
-(2, 'Dhvani Barot', 'dhvani', '7113a50eb9cc32d8ca79a71e154a87d4', 'dhb@narola.email', 1, 1, '2018-05-09 17:34:33', '0000-00-00 00:00:00', 0),
-(6, 'Parth Viramgama', 'parth', '8c46c4c15a6da1e7781d9bda7fc4bdba', 'pav@narola.email', 0, 1, '2018-05-09 17:51:32', '0000-00-00 00:00:00', 0);
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `gender`, `role`, `created_date`, `is_delete`) VALUES
+(1, 'Urjita Dalal', 'urjita', 'a8b4fab1bed511ab6850908c72c547c9', 'ud@narola.email', 'female', 1, '2018-05-22 23:05:50', 0);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `role` (`role`),
+  ADD KEY `role_2` (`role`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
