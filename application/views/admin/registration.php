@@ -41,7 +41,7 @@
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo_light.png" alt=""></a>
+			<a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
 
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -82,7 +82,7 @@
 				<!-- Content area -->
 				<div class="content">
 					<!-- Registration form -->
-					<form action="<?php echo base_url().'admin/register' ?>" method="post">
+					<form action="admin/register" method="post">
 						<div class="row">
 							<div class="col-lg-6 col-lg-offset-3">
 								<div class="panel registration-form">
@@ -125,10 +125,10 @@
 													<div class="form-control-feedback">
 														<i class="icon-user-check text-muted"></i>
 													</div>
+													<?php if(form_error('txt_fname')) : ?>
+														<span class="cust_form_error"><?php echo form_error('txt_fname'); ?></span>
+													<?php endif; ?>
 												</div>
-												<?php if(form_error('txt_fname')) : ?>
-													<span class="cust_form_error"><?php echo form_error('txt_fname'); ?></span>
-												<?php endif; ?>
 											</div>
 
 											<div class="col-md-6">
@@ -137,10 +137,10 @@
 													<div class="form-control-feedback">
 														<i class="icon-user-check text-muted"></i>
 													</div>
-												</div>
-												<?php if(form_error('txt_lname')) : ?>
-													<span class="cust_form_error"><?php echo form_error('txt_lname'); ?></span>
-												<?php endif; ?>
+													<?php if(form_error('txt_lname')) : ?>
+														<span class="cust_form_error"><?php echo form_error('txt_lname'); ?></span>
+													<?php endif; ?>
+												</div>												
 											</div>
 										</div>
 
@@ -151,6 +151,9 @@
 													<div class="form-control-feedback">
 														<i class="icon-user-lock text-muted"></i>
 													</div>
+													<?php if(form_error('txt_password')) : ?>
+														<span class="cust_form_error"><?php echo form_error('txt_password'); ?></span>
+													<?php endif; ?>
 												</div>
 											</div>
 
@@ -160,6 +163,9 @@
 													<div class="form-control-feedback">
 														<i class="icon-user-lock text-muted"></i>
 													</div>
+													<?php if(form_error('txt_conf_password')) : ?>
+														<span class="cust_form_error"><?php echo form_error('txt_conf_password'); ?></span>
+													<?php endif; ?>
 												</div>
 											</div>
 										</div>
@@ -171,7 +177,10 @@
 													<div class="form-control-feedback">
 														<i class="icon-mention text-muted"></i>
 													</div>
-												</div>
+													<?php if(form_error('txt_email')) : ?>
+														<span class="cust_form_error"><?php echo form_error('txt_email'); ?></span>
+													<?php endif; ?>
+												</div>												
 											</div>
 
 											<div class="col-md-6">
@@ -180,18 +189,21 @@
 													<div class="form-control-feedback">
 														<i class="icon-mention text-muted"></i>
 													</div>
-												</div>
+													<?php if(form_error('txt_conf_email')) : ?>
+														<span class="cust_form_error"><?php echo form_error('txt_conf_email'); ?></span>
+													<?php endif; ?>
+												</div>												
 											</div>
 										</div>
 
 										<div class="row">
 											<div class="form-group has-feedback">
 												<label class="radio-inline">
-													<input type="radio" name="radio_gender" class="styled" value="0" checked="checked">Male
+													<input type="radio" name="radio_gender" class="styled" value="0" checked="checked" <?php echo set_radio('radio_gender', '0', TRUE); ?>>Male
 												</label>
 
 												<label class="radio-inline">
-													<input type="radio" name="radio_gender" class="styled" value="1">Female
+													<input type="radio" name="radio_gender" class="styled" value="1" <?php echo set_radio('radio_gender', '1', TRUE); ?>>Female
 												</label>
 											</div>
 										</div>

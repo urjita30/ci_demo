@@ -80,8 +80,8 @@ class Login extends MY_Controller {
 			// $this->form_validation->set_rules($config);
 
 			$this->form_validation->set_rules('txt_username', 'Username', 'trim|required|min_length[5]|max_length[12]|is_unique[users.username]');
-			$this->form_validation->set_rules('txt_fname', 'First Name', 'trim|required');
-			$this->form_validation->set_rules('txt_lname', 'Last Name', 'trim|required');
+			$this->form_validation->set_rules('txt_fname', 'First Name', 'trim|required|alpha');
+			$this->form_validation->set_rules('txt_lname', 'Last Name', 'trim|required|alpha');
 			$this->form_validation->set_rules('txt_password', 'Password', 'trim|required');
 			$this->form_validation->set_rules('txt_conf_password', 'Password Confirmation', 'trim|required|matches[txt_password]');
 			$this->form_validation->set_rules('txt_email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
