@@ -88,7 +88,7 @@ class Login extends MY_Controller {
 			$this->form_validation->set_rules('txt_conf_email', 'Email Confirmation', 'trim|required|matches[txt_email]');
 
 			if ($this->form_validation->run() == FALSE) {
-				$data['error'] = 'There is some error1. Please try again !';
+				$data['error'] = 'There is some error. Please try again !';
 				$this->session->set_flashdata('error', $data['error']);
 				$this->load->view('admin/registration',$data);
 			} else {
@@ -104,7 +104,7 @@ class Login extends MY_Controller {
 				// pr($dataArr,1);
 				$resp = $this->users_model->perform_action('insert',$dataArr);
 				if($resp < 1) {
-					$data['error'] = 'There is some error2. Please try again !';
+					$data['error'] = 'There is some error. Please try again !';
 					$this->session->set_flashdata('error', $data['error']);
 					$this->load->view('admin/registration',$data);
 				} else {

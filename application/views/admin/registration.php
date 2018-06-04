@@ -29,10 +29,12 @@
 
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/login.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
 	<!-- /theme JS files -->
 
 	<style>
 		.radio input[type="radio"], .radio-inline input[type="radio"] {margin-left: -15px;}
+		.error {color: #d41616;}
 	</style>
 </head>
 
@@ -82,7 +84,7 @@
 				<!-- Content area -->
 				<div class="content">
 					<!-- Registration form -->
-					<form action="<?php echo base_url().'admin/register' ?>" method="post">
+					<form action="<?php echo base_url().'admin/register' ?>" method="post" id="reg_from">
 						<div class="row">
 							<div class="col-lg-6 col-lg-offset-3">
 								<div class="panel registration-form">
@@ -109,7 +111,7 @@
 										</div>
 
 										<div class="form-group has-feedback">
-											<input type="text" class="form-control" name="txt_username" value="<?php echo set_value('txt_username'); ?>" placeholder="Username" required>
+											<input type="text" class="form-control" id="txt_username" name="txt_username" value="<?php echo set_value('txt_username'); ?>" placeholder="Username" required>
 											<div class="form-control-feedback">
 												<i class="icon-user-plus text-muted"></i>
 											</div>
@@ -121,7 +123,7 @@
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group has-feedback">
-													<input type="text" class="form-control" name="txt_fname" value="<?php echo set_value('txt_fname'); ?>" placeholder="First name" required>
+													<input type="text" class="form-control" id="txt_fname" name="txt_fname" value="<?php echo set_value('txt_fname'); ?>" placeholder="First name" required>
 													<div class="form-control-feedback">
 														<i class="icon-user-check text-muted"></i>
 													</div>
@@ -133,7 +135,7 @@
 
 											<div class="col-md-6">
 												<div class="form-group has-feedback">
-													<input type="text" class="form-control" name="txt_lname" value="<?php echo set_value('txt_lname'); ?>" placeholder="Second name" required>
+													<input type="text" class="form-control" id="txt_lname" name="txt_lname" value="<?php echo set_value('txt_lname'); ?>" placeholder="Second name" required>
 													<div class="form-control-feedback">
 														<i class="icon-user-check text-muted"></i>
 													</div>
@@ -147,7 +149,7 @@
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group has-feedback">
-													<input type="password" class="form-control" name="txt_password" placeholder="Create password" required>
+													<input type="password" class="form-control" id="txt_password" name="txt_password" placeholder="Create password" required>
 													<div class="form-control-feedback">
 														<i class="icon-user-lock text-muted"></i>
 													</div>
@@ -156,7 +158,7 @@
 
 											<div class="col-md-6">
 												<div class="form-group has-feedback">
-													<input type="password" class="form-control" name="txt_conf_password" placeholder="Repeat password" required>
+													<input type="password" class="form-control" id="txt_conf_password" name="txt_conf_password" placeholder="Repeat password" required>
 													<div class="form-control-feedback">
 														<i class="icon-user-lock text-muted"></i>
 													</div>
@@ -167,7 +169,7 @@
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group has-feedback">
-													<input type="email" class="form-control" name="txt_email" value="<?php echo set_value('txt_email'); ?>" placeholder="Your email" required>
+													<input type="email" class="form-control" id="txt_email" name="txt_email" value="<?php echo set_value('txt_email'); ?>" placeholder="Your email" required>
 													<div class="form-control-feedback">
 														<i class="icon-mention text-muted"></i>
 													</div>
@@ -176,7 +178,7 @@
 
 											<div class="col-md-6">
 												<div class="form-group has-feedback">
-													<input type="email" class="form-control" name="txt_conf_email" value="<?php echo set_value('txt_conf_email'); ?>" placeholder="Repeat email" required>
+													<input type="email" class="form-control" id="txt_conf_email" name="txt_conf_email" value="<?php echo set_value('txt_conf_email'); ?>" placeholder="Repeat email" required>
 													<div class="form-control-feedback">
 														<i class="icon-mention text-muted"></i>
 													</div>
@@ -248,6 +250,59 @@
 
 	</div>
 	<!-- /page container -->
-
+	<script>
+		$().ready(function(){
+			$('#reg_from').validate({
+				rules: {
+					txt_fname: "required",
+					txt_lname: "required",
+					txt_username: {
+						required: true,
+						minlength: 2
+					},
+					txt_password: {
+						required: true,
+						minlength: 5
+					},
+					txt_conf_password: {
+						required: true,
+						minlength: 5,
+						equalTo: "#txt_password"
+					},
+					txt_email: {
+						required: true,
+						email: true
+					},
+					txt_conf_email: {
+						required: true,
+						email: true,
+						equalTo: "#txt_email"
+					},
+					radio_gender: {
+						required: true
+					}
+				},
+				messages: {
+					txt_fname: "Please enter your firstname",
+					txt_lname: "Please enter your lastname",
+					txt_username: {
+						required: "Please enter a username",
+						minlength: "Your username must consist of at least 2 characters"
+					},
+					txt_password: {
+						required: "Please provide a password",
+						minlength: "Your password must be 5 character long"
+					},
+					txt_conf_password: {
+						required: "Please provide a Confirm password",
+						minlength: "Your password must be 5 character long",
+						equalTo: "Please enter the same password as above"
+					},
+					txt_email: "Please enter valid email address",
+					radio_gender: "Please select your gender"
+				}
+			});
+		});
+	</script>
 </body>
 </html>
