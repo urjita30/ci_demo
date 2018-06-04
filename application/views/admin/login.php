@@ -48,7 +48,7 @@
 				<div class="content pb-20">
 
 					<!-- Form with validation -->
-					<form action="index.html" class="form-validate">
+					<form action="admin/" class="form-validate" method="post">
 						<div class="panel panel-body login-form">
 							<?php if($this->session->flashdata('success')) : ?>
 							<div class="content-group-lg">
@@ -72,14 +72,14 @@
 							</div>
 
 							<div class="form-group has-feedback has-feedback-left">
-								<input type="text" class="form-control" placeholder="Username" name="username" required="required">
+								<input type="text" class="form-control" placeholder="Username" name="txt_username" required="required">
 								<div class="form-control-feedback">
 									<i class="icon-user text-muted"></i>
 								</div>
 							</div>
 
 							<div class="form-group has-feedback has-feedback-left">
-								<input type="text" class="form-control" placeholder="Password" name="password" required="required">
+								<input type="password" class="form-control" placeholder="Password" name="txt_password" required="required">
 								<div class="form-control-feedback">
 									<i class="icon-lock2 text-muted"></i>
 								</div>

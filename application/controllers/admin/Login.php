@@ -11,7 +11,24 @@ class Login extends MY_Controller {
 	}
 	
 	public function index()	{
-		$this->load->view('/admin/login');
+		if(!empty($this->input->post())) {
+			$this->form_validation->set_rules('txt_username', 'Username', 'trim|required');
+			$this->form_validation->set_rules('txt_password', 'Password', 'trim|required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data['error'] = 'Please Enter correct Username or Password';
+				$this->session->set_flashdata('error', $data['error']);
+				$this->load->view('admin/login',$data);
+			} else {
+				$dataArr = array(
+					'username' 	=> $this->input->post('txt_username'),
+					'password' 	=> md5($this->input->post('txt_password'))
+				);
+
+			}
+		} else {
+			$this->load->view('/admin/login');
+		}
 	}
 
 	public function register() {
@@ -80,8 +97,8 @@ class Login extends MY_Controller {
 			// $this->form_validation->set_rules($config);
 
 			$this->form_validation->set_rules('txt_username', 'Username', 'trim|required|min_length[5]|max_length[12]|is_unique[users.username]');
-			$this->form_validation->set_rules('txt_fname', 'First Name', 'trim|required|alpha');
-			$this->form_validation->set_rules('txt_lname', 'Last Name', 'trim|required|alpha');
+			$this->form_validation->set_rules('txt_fname', 'First Name', 'trim|required');
+			$this->form_validation->set_rules('txt_lname', 'Last Name', 'trim|required');
 			$this->form_validation->set_rules('txt_password', 'Password', 'trim|required');
 			$this->form_validation->set_rules('txt_conf_password', 'Password Confirmation', 'trim|required|matches[txt_password]');
 			$this->form_validation->set_rules('txt_email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
