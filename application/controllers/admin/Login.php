@@ -24,7 +24,21 @@ class Login extends MY_Controller {
 					'username' 	=> $this->input->post('txt_username'),
 					'password' 	=> md5($this->input->post('txt_password'))
 				);
-
+				$resp = $this->users_model->perform_action('select',$dataArr);
+				$num_row = $resp->num_rows();
+				$login_arr = $resp->row_array();
+				$this->session->set_userdata('logged_in_user_id',$login_arr['id']);
+				$this->session->set_userdata('logged_in_user_name',$login_arr['name']);
+				// pr($login_arr,1);
+				if($num_row == 1) {
+					$data['success'] = 'You are successfully logged in !';
+					$this->session->set_flashdata('success', $data['success']);
+					$this->template->load('default','/admin/dashboard',$data);
+				} else {
+					$data['error'] = 'Please enter valid username or password.';
+					$this->session->set_flashdata('error', $data['error']);
+					$this->load->view('/admin/login',$data);
+				}
 			}
 		} else {
 			$this->load->view('/admin/login');
