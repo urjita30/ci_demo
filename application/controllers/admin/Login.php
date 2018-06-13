@@ -11,6 +11,11 @@ class Login extends MY_Controller {
 	}
 	
 	public function index()	{
+		if(!empty($this->session->userdata('logged_in_user_id'))) {
+			redirect('admin/dashboard');
+		} else {
+			$this->load->view('/admin/login');
+		}
 		if(!empty($this->input->post())) {
 			$this->form_validation->set_rules('txt_username', 'Username', 'trim|required');
 			$this->form_validation->set_rules('txt_password', 'Password', 'trim|required');
@@ -33,11 +38,12 @@ class Login extends MY_Controller {
 				if($num_row == 1) {
 					$data['success'] = 'You are successfully logged in !';
 					$this->session->set_flashdata('success', $data['success']);
-					$this->template->load('default','/admin/dashboard',$data);
+					redirect('admin/dashboard');
+					// $this->template->load('default','/admin/dashboard',$data);
 				} else {
 					$data['error'] = 'Please enter valid username or password.';
 					$this->session->set_flashdata('error', $data['error']);
-					$this->load->view('/admin/login',$data);
+					redirect('admin');
 				}
 			}
 		} else {
@@ -147,5 +153,11 @@ class Login extends MY_Controller {
 		} else {
 			$this->load->view('/admin/registration');
 		}
+	}
+
+	public function logout() {
+		// session_destroy();
+		$this->session->sess_destroy();
+		redirect('admin');
 	}
 }
