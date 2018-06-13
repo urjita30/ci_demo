@@ -39,7 +39,10 @@
 </head>
 
 <body>
-
+<?php 
+	$page = $this->uri->segment(2); 
+	echo 'Page1'.$page;
+?>
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">

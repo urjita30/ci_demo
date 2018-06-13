@@ -5,7 +5,7 @@ class Users extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		// $this->model->load('users_model');
+		$this->load->model('users_model');
 	}
 
 	public function add()	{
@@ -13,6 +13,7 @@ class Users extends MY_Controller {
 		if(!empty($this->input->post())) {
 
 		} else {
+			$data['role'] = $this->users_model->get_role()->result_array();
 			$this->template->load('default','/admin/users/add', $data);
 		}
 	}

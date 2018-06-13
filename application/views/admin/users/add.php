@@ -74,13 +74,13 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Avatar:</label>
+						<label class="col-lg-3 control-label">Role:</label>
 						<div class="col-lg-9">
-							<div class="uploader">
-								<input type="file" class="file-styled">
-								<span class="filename" style="user-select: none;">No file selected</span>
-								<span class="action btn bg-blue-400" style="user-select: none;">Choose File</span>
-							</div>
+							<select class="select">
+							<?php foreach($role as $user_role) { ?>
+								<option value="<?php echo $user_role['id']; ?>"><?php echo $user_role['name']; ?></option>
+							<?php } ?>
+							</select>
 						</div>
 					</div>
 

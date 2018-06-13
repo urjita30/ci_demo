@@ -24,4 +24,10 @@ class users_model extends CI_Model {
 		}
 	}
 
+	public function get_role() {
+		$this->db->select('*');
+		$this->db->from(TBL_ROLE);
+		return $this->db->get();
+	}
+
 }
