@@ -310,7 +310,7 @@
 								<li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
 								<li class="active"><a href="<?php echo site_url('admin/dashboard'); ?>"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
 								<li>
-									<a href="#"><i class="icon-stack2"></i> <span>Users</span></a>
+									<a href="#"><i class="icon-user"></i> <span>Users</span></a>
 									<ul>
 										<li><a href="<?php echo site_url('admin/users/add'); ?>">Add Users</a></li>
 									</ul>
