@@ -40,8 +40,7 @@
 
 <body>
 <?php 
-	$page = $this->uri->segment(2); 
-	echo 'Page1'.$page;
+	$page = $this->uri->segment(2);
 ?>
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse">
@@ -303,19 +302,17 @@
 					</div>
 					<!-- /user menu -->
 
-
 					<!-- Main navigation -->
 					<div class="sidebar-category sidebar-category-visible">
 						<div class="category-content no-padding">
 							<ul class="navigation navigation-main navigation-accordion">
-
 								<!-- Main -->
 								<li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-								<li class="active"><a href="<?php echo site_url('admin/dashboard'); ?>"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+								<li class="<?php echo ($this->uri->segment(2) == 'dashboard' ? 'active' : '') ?>"><a href="<?php echo site_url('admin/dashboard'); ?>"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
 								<li>
 									<a href="#"><i class="icon-user"></i> <span>Users</span></a>
 									<ul>
-										<li><a href="<?php echo site_url('admin/users/add'); ?>">Add Users</a></li>
+										<li class="<?php echo ($this->uri->segment(3) == 'add' ? 'active' : '') ?>"><a href="<?php echo site_url('admin/users/add'); ?>">Add Users</a></li>
 									</ul>
 								</li>
 							</ul>
