@@ -89,22 +89,7 @@
 							<div class="col-lg-6 col-lg-offset-3">
 								<div class="panel registration-form">
 									<div class="panel-body">
-										<?php if($this->session->flashdata('success')) : ?>
-										<div class="content-group-lg">
-											<div class="alert alert-success alert-styled-left">
-												<button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-												<?php echo $this->session->flashdata('success'); ?>
-										    </div>
-									    </div>
-										<?php endif; ?>
-										<?php if($this->session->flashdata('error')) : ?>
-										<div class="content-group-lg">
-											<div class="alert alert-danger alert-styled-left">
-												<button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-												<?php echo $this->session->flashdata('error'); ?>
-										    </div>
-									    </div>
-										<?php endif; ?>
+										<?php $this->load->view('alert-view'); ?>
 										<div class="text-center">
 											<div class="icon-object border-success text-success"><i class="icon-plus3"></i></div>
 											<h5 class="content-group-lg">Create account <small class="display-block">All fields are required</small></h5>

@@ -7,13 +7,13 @@ class users_model extends CI_Model {
 		parent::__construct();
 	}
 
-	public function perform_action($action, $data) {
+	public function perform_action($action, $data, $table) {
 		if($action == 'insert') {
-			$this->db->insert(TBL_USERS, $data);
+			$this->db->insert($table, $data);
 			return $this->db->affected_rows();
 		} else if($action == 'select') {
 			$this->db->select('*');
-			$this->db->from(TBL_USERS);
+			$this->db->from($table);
 			$this->db->group_start();
 			$this->db->where('username',$data['username']);
 			$this->db->or_where('email',$data['username']);

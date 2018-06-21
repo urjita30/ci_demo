@@ -29,7 +29,7 @@ class Login extends MY_Controller {
 					'username' 	=> $this->input->post('txt_username'),
 					'password' 	=> md5($this->input->post('txt_password'))
 				);
-				$resp = $this->users_model->perform_action('select',$dataArr);
+				$resp = $this->users_model->perform_action('select',$dataArr, TBL_USERS);
 				$num_row = $resp->num_rows();
 				$login_arr = $resp->row_array();
 				$this->session->set_userdata('logged_in_user_id',$login_arr['id']);
@@ -139,7 +139,7 @@ class Login extends MY_Controller {
 					'role'		=> 1
 				);
 				// pr($dataArr,1);
-				$resp = $this->users_model->perform_action('insert',$dataArr);
+				$resp = $this->users_model->perform_action('insert',$dataArr,TBL_USERS);
 				if($resp < 1) {
 					$data['error'] = 'There is some error. Please try again !';
 					$this->session->set_flashdata('error', $data['error']);
