@@ -39,21 +39,59 @@ class Users extends MY_Controller {
 					redirect('/admin/users/add');
 					// $this->load->view('/admin/users/add',$data);
 				} else {
-					$data['success'] = 'You are successfully registered !';
-					$this->session->set_flashdata('success', $data['success']); 
+					$from = 'demo.narola@gmail.com';
+					$to = $this->input->post('txt_email');
+					$subject = 'Your Login Details';
+					$message = "Username: ".$this->input->post('txt_username')."<br/> Password: ".$this->input->post('txt_password');
 
-					$this->email->from('demo.narola@gmail.com', 'Demo narola');
-					$this->email->to('ud@narola.email');
+					$this->email->from($from, 'Demo Narola');
+					$this->email->to($to);
 					// $this->email->cc('another@another-example.com');
 					// $this->email->bcc('them@their-example.com');
 
-					$this->email->subject('Email Test');
-					$this->email->message('Testing the email class.');
+					$this->email->subject($subject);
+					$this->email->message($message);
 
-					$this->email->send();
-					
-					redirect('/admin/users/add');
-					// $this->load->view('admin/login',$data);
+					$mail = $this->email->send();
+
+				// 	$from = 'demo.narola@gmail.com';
+				// 	$to = $this->input->post('txt_email');
+				// 	$subject = 'Your Login Details';
+				// 	$message = 'Username: '.$this->input->post('txt_username').'\n Password: '.$this->input->post('txt_password');
+				// 	sendMail($from,$to,$subject,$message);
+				// 	$config = Array(
+			    //     'protocol' => 'smtp',
+			    //     'smtp_host' => 'ssl://smtp.googlemail.com',
+			    //     'smtp_port' => 465,
+			    //     'smtp_user' => 'demo.narola@gmail.com', // change it to yours
+			    //     'smtp_pass' => 'Narola21!', // change it to yours
+			    //     'mailtype' => 'html',
+			    //     'charset' => 'iso-8859-1',
+			    //     'wordwrap' => TRUE
+			    // );
+
+			    // $message = '';
+			    // // $this->load->library('email', $config);
+			    // $this->email->initialize($config);
+			    // $this->email->set_newline("\r\n");
+			    // $this->email->from('demo.narola@gmail.com'); // change it to yours
+			    // $this->email->to('ud@narola.email');// change it to yours
+			    // $this->email->subject('Resume from JobsBuddy for your Job posting');
+			    // $this->email->message($message);
+			    // if($this->email->send())
+			    // {
+			    //     echo 'Email sent.';
+			    // }
+			    // else
+			    // {
+			    //     show_error($this->email->print_debugger());
+			    // } die;
+					if($mail) {
+						$data['success'] = 'You are successfully registered !';
+						$this->session->set_flashdata('success', $data['success']); 
+						redirect('/admin/users/add');
+						// $this->load->view('admin/login',$data);
+					}
 				}
 			}
 

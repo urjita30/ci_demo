@@ -59,3 +59,4 @@ $route['admin'] = 'admin/login';
 $route['admin/register'] = 'admin/login/register';
 $route['admin/logout'] = 'admin/login/logout';
 $route['admin/dashboard'] = 'admin/dashboard/dashboard';
+$route['admin/my_profile'] = 'admin/login/my_profile';

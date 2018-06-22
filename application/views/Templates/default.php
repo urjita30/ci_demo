@@ -256,7 +256,7 @@
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+						<li><a href="<?php echo site_url('/admin/my_profile'); ?>"><i class="icon-user-plus"></i> My profile</a></li>
 						<li><a href="#"><i class="icon-coins"></i> My balance</a></li>
 						<li><a href="#"><span class="badge bg-teal-400 pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
 						<li class="divider"></li>
@@ -331,7 +331,7 @@
 				<div class="page-header page-header-default">
 					<div class="page-header-content">
 						<div class="page-title">
-							<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> - Dashboard</h4>
+							<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold"></span>	<?php echo $title; ?></h4>
 						</div>
 					</div>
 

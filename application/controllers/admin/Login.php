@@ -156,8 +156,78 @@ class Login extends MY_Controller {
 	}
 
 	public function logout() {
-		// session_destroy();
 		$this->session->sess_destroy();
 		redirect('admin');
+	}
+
+	public function my_profile() {
+		$data['title'] = "My Profile";
+		$dataArr = array(
+			'id'	=> $this->session->userdata('logged_in_user_id')
+		);
+		$data['resp']= $this->users_model->perform_action('selectall',$dataArr,TBL_USERS)->row_array();
+		if(!empty($this->input->post())) {
+			// pr($_FILES,1);
+			$this->form_validation->set_rules('txt_username', 'Username', 'trim|required|min_length[5]|max_length[12]');
+			$this->form_validation->set_rules('txt_fname', 'First Name', 'trim|required');
+			$this->form_validation->set_rules('txt_lname', 'Last Name', 'trim|required');
+			// $this->form_validation->set_rules('txt_password', 'Password', 'trim|required');
+			// $this->form_validation->set_rules('txt_conf_password', 'Password Confirmation', 'trim|required|matches[txt_password]');
+			$this->form_validation->set_rules('txt_email', 'Email', 'trim|required|valid_email');
+			// $this->form_validation->set_rules('file_avatar', 'File Avatar', 'trim|required');
+
+			if ($this->form_validation->run() == FALSE) {
+				// echo 'if'; die;
+				// $data['error'] = 'There is some error. Please try again !';
+				// $this->session->set_flashdata('error', $data['error']);
+				$this->template->load('default','admin/my_profile',$data);
+			} else {
+				
+				$name = $this->input->post('txt_fname').' '.$this->input->post('txt_lname');
+
+				if(isset($_FILES['file_avatar']['name'])) {
+				$config['upload_path']          = FILE_UPLOAD_PATH;
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size']             = 100;
+                // $config['max_width']            = 1024;
+                // $config['max_height']           = 768;
+                // echo FILE_UPLOAD_PATH.' path'; die;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ( ! $this->upload->do_upload('file_avatar')) {
+                	// echo 'if'; die;
+                	$error = array('error' => $this->upload->display_errors());
+                    $this->template->load('default','admin/my_profile',$error);
+                } else {
+                	// echo 'else'; die;
+                	// pr($this->upload->data(),1);
+					$dataArr = array(
+						'username' 	=> $this->input->post('txt_username'),
+						'name' 		=> $name,
+						'password' 	=> md5($this->input->post('txt_password')),
+						'email' 	=> $this->input->post('txt_email'),
+						'gender' 	=> ($this->input->post('radio_gender')) ? 'female' : 'male' ,
+						'avatar'	=> $this->upload->data('file_name')
+					);
+				
+					pr($dataArr,1);
+					$resp = $this->users_model->perform_action('insert',$dataArr,TBL_USERS);
+					if($resp < 1) {
+						$data['error'] = 'There is some error. Please try again !';
+						$this->session->set_flashdata('error', $data['error']);
+						$this->load->view('admin/registration',$data);
+					} else {
+						$data['success'] = 'You are successfully registered !';
+						$this->session->set_flashdata('success', $data['success']); 
+						$this->load->view('admin/login',$data);
+					}
+				}
+			}
+			}
+		} else {
+
+			$this->template->load('default','admin/my_profile',$data);
+		}
+		
 	}
 }

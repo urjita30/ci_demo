@@ -9,6 +9,7 @@ class Dashboard extends MY_Controller {
 
 	public function dashboard()	{
 		if(!empty($this->session->userdata('logged_in_user_id'))) {
+			$data['title'] = 'Dashboard';
 			$this->template->load('default','/admin/dashboard');
 		} else {
 			$this->load->view('/admin/login');
