@@ -26,6 +26,9 @@ class users_model extends CI_Model {
 			$this->db->from($table);
 			$this->db->where('id',$data['id']);
 			return $this->db->get();
+		} else if($action == 'update') {
+			$this->db->where('id', $data['id']);  
+			return $this->db->update($table, $data);
 		}
 	}
 
